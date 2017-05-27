@@ -4,7 +4,7 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 require 'vendor/autoload.php';
 
-$app = new \Slim\App; 
+$app = new \Slim\App;
 $app->get('/science/facts', function (Request $request, Response $response) {
 
    	$data_array = array("The Earth is travelling through at 66700 miles per hour."
@@ -34,4 +34,27 @@ $app->get('/science/facts', function (Request $request, Response $response) {
 
     return $response->withHeader("Content-type", "application/json");
 });
+
+$app->get('/mathematics/facts', function (Request $request, Response $response)
+{
+	$data_array = array(
+		"If you write out pi to two decimal places, backwards it spells \"pie\"",
+		"A French word for pie chart is \"camembert\".",
+		"The spiral shapes of sunflowers follow Fibonacci sequence",
+		"A pizza that has radius \"z\" and height \"a\" has volume Pi by— z by— z by— a.",
+		"The word hundred is derived from the word \"hundrath\", which actually means 120 and not 100.",
+		"111,111,111 multiplied by 111,111,111 = 12,345,678,987,654,321.",
+		"In a room of just 23 people there's a 50% chance that two people have the same birthday.",
+		"Zero is the only number that can't be represented in Roman numerals."
+	);
+
+    $response->getBody()->write(json_encode(
+        array("fact" => $data_array[rand(0,sizeof($data_array) - 1)])
+        )
+    );
+
+
+    return $response->withHeader("Content-type", "application/json");
+});
+
 $app->run();
